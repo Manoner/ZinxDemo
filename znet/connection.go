@@ -21,6 +21,9 @@ type Connection struct {
 
 	// 告知该连接已经退出/停止的channel
 	ExitBuffChan chan bool
+
+	// 无缓冲管道，用于读写两个goroutine之间的消息通信
+	msgChan chan []byte
 }
 
 //创建连接的方法
@@ -29,10 +32,35 @@ func NewConnection(conn *net.TCPConn, connID uint32, msgHandler ziface.IMsgHandl
 		Conn:         conn,
 		ConnID:       connID,
 		isClosed:     false,
-		MsgHandler:       msgHandler,
+		MsgHandler:   msgHandler,
 		ExitBuffChan: make(chan bool, 1),
+		msgChan:      make(chan []byte),
 	}
 	return c
+}
+
+/*
+	写消息Goroutine，用户将数据发送给客户端
+*/
+
+func (c *Connection) StartWriter() {
+	fmt.Println("Writer Goroutine is running ....")
+	defer fmt.Println(c.RemoteAddr().String(), "[conn Writer exit!]")
+
+	for {
+		select {
+		case data := <-c.msgChan:
+			// 有数据要写给客户端
+			fmt.Println("data --->", data)
+			if _, err := c.Conn.Write(data); err != nil {
+				fmt.Println("Send Data error:,", err, " Conn Writer exit!")
+				return
+			}
+		case <-c.ExitBuffChan:
+			// conn 已经关闭
+			return
+		}
+	}
 }
 
 /* 处理conn读数据的Goroutine */
@@ -74,20 +102,11 @@ func (c *Connection) StartReader() {
 		}
 		msg.SetData(data)
 
-
 		// 得到当前客户端请求的 Request 数据
 		req := &Request{
 			conn: c,
 			msg:  msg,
 		}
-
-		// 从路由Routers 中找到注册绑定Conn的对应Handle
-		//go func(request ziface.IRequest) {
-		//	// 执行注册的路由方法
-		//	c.Router.PreHandle(request)
-		//	c.Router.Handle(request)
-		//	c.Router.PostHandle(request)
-		//}(req)
 
 		//从绑定好的消息和对应的处理方法中执行对应的Handle方法
 		go c.MsgHandler.DoMsgHandler(req)
@@ -96,8 +115,12 @@ func (c *Connection) StartReader() {
 
 //启动连接，让当前连接开始工作
 func (c *Connection) Start() {
-	// 开启处理该连接读取到客户端数据之后的请求业务；
+
+	//1 开启用户从客户端读取数据流程的Goroutine
 	go c.StartReader()
+
+	// 开启用于写回客户端数据流程的Goroutine
+	go c.StartWriter()
 
 	for {
 		select {
@@ -155,11 +178,8 @@ func (c *Connection) SendMsg(msgId uint32, data []byte) error {
 		fmt.Println("Pack error msg id = ", msgId)
 		return errors.New("Pack error msg ")
 	}
-	// 写会客户端
-	if _, err := c.Conn.Write(msg); err != nil {
-		fmt.Println("Write msg id ", msgId, " error ")
-		c.ExitBuffChan <- true
-		return errors.New("conn write error ")
-	}
+	// 写回客户端
+	c.msgChan <- msg // 将之前直接回写给conn.Wrtier 的方法 改为 发送给Channel 供 Writer 读取
+
 	return nil
 }

@@ -61,7 +61,7 @@ func (this *HelloZinxRouter) Handle(request ziface.IRequest) {
 // Server 模块的测试函数
 func main() {
 	// 1 创建一个 server 句柄 s
-	s := znet.NewServer("[ zinx v0.6]")
+	s := znet.NewServer("[ zinx v0.7]")
 
 	// 配置路由
 	s.AddRouter(0,&PingRouter{})
