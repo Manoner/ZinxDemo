@@ -16,20 +16,20 @@ type Connection struct {
 	// 当前连接的关闭状态
 	isClosed bool
 
-	// 该连接的处理方法 router
-	Router ziface.IRouter
+	//消息管理MsgId和对应处理方法的消息管理模块
+	MsgHandler ziface.IMsgHandle
 
 	// 告知该连接已经退出/停止的channel
 	ExitBuffChan chan bool
 }
 
 //创建连接的方法
-func NewConnection(conn *net.TCPConn, connID uint32, router ziface.IRouter) *Connection {
+func NewConnection(conn *net.TCPConn, connID uint32, msgHandler ziface.IMsgHandle) *Connection {
 	c := &Connection{
 		Conn:         conn,
 		ConnID:       connID,
 		isClosed:     false,
-		Router:       router,
+		MsgHandler:       msgHandler,
 		ExitBuffChan: make(chan bool, 1),
 	}
 	return c
@@ -74,16 +74,6 @@ func (c *Connection) StartReader() {
 		}
 		msg.SetData(data)
 
-		// 读取我们最大的数据到buf中
-		//buf := make([]byte, utils.GlobalObject.MaxPacketSize)
-		//cnt, err := c.Conn.Read(buf)
-		//if err != nil {
-		//	fmt.Println("recv buf err : ", err)
-		//	c.ExitBuffChan <- true
-		//	continue
-		//}
-		//
-		//log.Println(cnt)
 
 		// 得到当前客户端请求的 Request 数据
 		req := &Request{
@@ -92,12 +82,15 @@ func (c *Connection) StartReader() {
 		}
 
 		// 从路由Routers 中找到注册绑定Conn的对应Handle
-		go func(request ziface.IRequest) {
-			// 执行注册的路由方法
-			c.Router.PreHandle(request)
-			c.Router.Handle(request)
-			c.Router.PostHandle(request)
-		}(req)
+		//go func(request ziface.IRequest) {
+		//	// 执行注册的路由方法
+		//	c.Router.PreHandle(request)
+		//	c.Router.Handle(request)
+		//	c.Router.PostHandle(request)
+		//}(req)
+
+		//从绑定好的消息和对应的处理方法中执行对应的Handle方法
+		go c.MsgHandler.DoMsgHandler(req)
 	}
 }
 
