@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbf26c2e-2157-453f-bd23-ffa3e39b37d9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/conf/zinx.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/globalobj.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/globalobj_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README2.md" beforeDir="false" afterPath="$PROJECT_DIR$/README2.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/znet/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/znet/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +29,9 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1gO6yT4OAZMyvpgRYA04sWKiq4z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -49,7 +55,18 @@
       <recent name="$PROJECT_DIR$/app/server" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.TestGlobalObj_Reload in ZinxDemo/utils">
+    <configuration name="TestGlobalObj_Reload in ZinxDemo/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="ZinxDemo" />
+      <working_directory value="$PROJECT_DIR$/utils" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="ZinxDemo/utils" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^TestGlobalObj_Reload$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestServer in ZinxDemo/znet" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="ZinxDemo" />
       <working_directory value="$PROJECT_DIR$/znet" />
@@ -63,6 +80,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestGlobalObj_Reload in ZinxDemo/utils" />
         <item itemvalue="Go Test.TestServer in ZinxDemo/znet" />
       </list>
     </recent_temporary>
@@ -83,22 +101,26 @@
       <screen x="0" y="23" width="1680" height="947" />
     </state>
     <state x="627" y="205" key="Github.UntrackedFilesDialog/1680.23.1920.1057/0.23.1680.947@0.23.1680.947" timestamp="1597988651101" />
-    <state width="1638" height="392" key="GridCell.Tab.0.bottom" timestamp="1597976555027">
-      <screen x="0" y="23" width="1680" height="947" />
+    <state width="1878" height="447" key="GridCell.Tab.0.bottom" timestamp="1597994407248">
+      <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1638" height="392" key="GridCell.Tab.0.bottom/1680.23.1920.1057/0.23.1680.947@0.23.1680.947" timestamp="1597976555027" />
-    <state width="1638" height="392" key="GridCell.Tab.0.center" timestamp="1597976555027">
-      <screen x="0" y="23" width="1680" height="947" />
+    <state width="1878" height="447" key="GridCell.Tab.0.bottom/1680.23.1920.1057/0.23.1680.947@1680.23.1920.1057" timestamp="1597994407248" />
+    <state width="1878" height="447" key="GridCell.Tab.0.center" timestamp="1597994407247">
+      <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1638" height="392" key="GridCell.Tab.0.center/1680.23.1920.1057/0.23.1680.947@0.23.1680.947" timestamp="1597976555027" />
-    <state width="1638" height="392" key="GridCell.Tab.0.left" timestamp="1597976555026">
-      <screen x="0" y="23" width="1680" height="947" />
+    <state width="1878" height="447" key="GridCell.Tab.0.center/1680.23.1920.1057/0.23.1680.947@1680.23.1920.1057" timestamp="1597994407247" />
+    <state width="1878" height="447" key="GridCell.Tab.0.left" timestamp="1597994407247">
+      <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1638" height="392" key="GridCell.Tab.0.left/1680.23.1920.1057/0.23.1680.947@0.23.1680.947" timestamp="1597976555026" />
-    <state width="1638" height="392" key="GridCell.Tab.0.right" timestamp="1597976555027">
-      <screen x="0" y="23" width="1680" height="947" />
+    <state width="1878" height="447" key="GridCell.Tab.0.left/1680.23.1920.1057/0.23.1680.947@1680.23.1920.1057" timestamp="1597994407247" />
+    <state width="1878" height="447" key="GridCell.Tab.0.right" timestamp="1597994407248">
+      <screen x="1680" y="23" width="1920" height="1057" />
     </state>
     <state width="1638" height="392" key="GridCell.Tab.0.right/1680.23.1920.1057/0.23.1680.947@0.23.1680.947" timestamp="1597976555027" />
+    <state width="1878" height="447" key="GridCell.Tab.0.right/1680.23.1920.1057/0.23.1680.947@1680.23.1920.1057" timestamp="1597994407248" />
     <state x="2347" y="306" width="586" height="490" key="find.popup" timestamp="1597992519285">
       <screen x="1680" y="23" width="1920" height="1057" />
     </state>
