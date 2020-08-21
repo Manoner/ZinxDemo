@@ -3,6 +3,7 @@ package znet
 import (
 	"ZinxDemo/ziface"
 	"fmt"
+	"log"
 	"net"
 )
 
@@ -14,20 +15,20 @@ type Connection struct {
 	// 当前连接的关闭状态
 	isClosed bool
 
-	// 该连接的处理方法api
-	HandleAPI ziface.HandFunc
+	// 该连接的处理方法 router
+	Router ziface.IRouter
 
 	// 告知该连接已经退出/停止的channel
 	ExitBuffChan chan bool
 }
 
 //创建连接的方法
-func NewConnection(conn *net.TCPConn, connID uint32, callBackApi ziface.HandFunc) *Connection {
+func NewConnection(conn *net.TCPConn, connID uint32, router ziface.IRouter) *Connection {
 	c := &Connection{
 		Conn:         conn,
 		ConnID:       connID,
 		isClosed:     false,
-		HandleAPI:    callBackApi,
+		Router: router,
 		ExitBuffChan: make(chan bool, 1),
 	}
 	return c
@@ -49,12 +50,21 @@ func (c *Connection) StartReader() {
 			continue
 		}
 
-		// 调用当前连接业务（这里执行的是当前conn的绑定的handle方法）
-		if err := c.HandleAPI(c.Conn, buf, cnt); err != nil {
-			fmt.Println("connID ", c.ConnID, " handle is error ")
-			c.ExitBuffChan <- true
-			return
+		log.Println(cnt)
+
+		// 得到当前客户端请求的 Request 数据
+		req := &Request{
+			conn: c,
+			data: buf,
 		}
+
+		// 从路由Routers 中找到注册绑定Conn的对应Handle
+		go func(request ziface.IRequest) {
+			// 执行注册的路由方法
+			c.Router.PreHandle(request)
+			c.Router.Handle(request)
+			c.Router.PostHandle(request)
+		}(req)
 	}
 }
 

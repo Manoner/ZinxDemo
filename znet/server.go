@@ -2,7 +2,6 @@ package znet
 
 import (
 	"ZinxDemo/ziface"
-	"errors"
 	"fmt"
 	"net"
 	"time"
@@ -12,26 +11,28 @@ import (
 type Server struct {
 	// 服务器的名称
 	Name string
-
 	// tcp4 or other
 	IPVersion string
-
 	// 服务器绑定的IP地址
 	IP string
-
 	// 服务器绑定的端口号
 	Port int
+	//当前Server由用户绑定的回调router,也就是Server注册的链接对应的处理业务
+	Router ziface.IRouter
 }
 
-//============== 定义当前客户端链接的handle api ===========
-func CallBackToClient(conn *net.TCPConn, data []byte, cnt int) error {
-	// 回显业务
-	fmt.Println("[Conn Handle] CallBackToClient ... ")
-	if _, err := conn.Write(data[:cnt]); err != nil {
-		fmt.Println("write back buf err ", err)
-		return errors.New("CallBackToClient error ")
+/**
+创建一个服务器句柄
+*/
+func NewServer(name string) ziface.IServer {
+	s := &Server{
+		Name:      name,
+		IPVersion: "tcp4",
+		IP:        "0.0.0.0",
+		Port:      7777,
+		Router:    nil,
 	}
-	return nil
+	return s
 }
 
 //============== 实现 ziface.IServer 里的全部接口方法 ========
@@ -72,29 +73,13 @@ func (s *Server) Start() {
 
 			// 3.2 TODO Server.Start() 设置服务器最大连接控制，如果超过最大连接，那么则关闭此新的连接
 
-			// 3.3 TODO Server.Start() 处理新连接的请求的 业务 方法，此时应该有 handler 和 conn 是绑定的
-			dealConn := NewConnection(conn, cid, CallBackToClient)
+			// 3.3 处理该新连接请求的 业务 方法，此时应该有 handler 和 conn 是绑定的
+			dealConn := NewConnection(conn, cid, s.Router)
 			cid++
 
+			// 3.4 启动当前连接的处理业务
 			go dealConn.Start()
 
-			// 我们这里暂时做一个最大512字节的回显服务
-			//go func() {
-			//	// 不断的循环从客户端获取数据
-			//	for {
-			//		buf := make([]byte, 512)
-			//		cnt, err := conn.Read(buf)
-			//		if err != nil {
-			//			fmt.Println("recv buf err : ", err)
-			//			continue
-			//		}
-			//		// 回显到客户端
-			//		if _, err := conn.Write(buf[:cnt]); err != nil {
-			//			fmt.Println("write back buf err ", err)
-			//			continue
-			//		}
-			//	}
-			//}()
 		}
 	}()
 
@@ -120,15 +105,9 @@ func (s *Server) Server() {
 	}
 }
 
-/**
-创建一个服务器句柄
-*/
-func NewServer(name string) ziface.IServer {
-	s := &Server{
-		Name:      name,
-		IPVersion: "tcp4",
-		IP:        "0.0.0.0",
-		Port:      7777,
-	}
-	return s
+func (s *Server) AddRouter(router ziface.IRouter) {
+	s.Router = router
+	fmt.Println("Add Router success! ")
 }
+
+

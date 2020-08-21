@@ -8,9 +8,9 @@ type IConnection interface {
 	// 停止连接，结束当前连接状态
 	Stop()
 	// 从当前连接获取原始的socket TCPConn
-	GetTCPConnection() *net.Conn
+	GetTCPConnection() *net.TCPConn
 	// 获取当前连接ID
-	GetConnID()
+	GetConnID() uint32
 	// 获取远程客户端地址信息
 	RemoteAddr() net.Addr
 }
@@ -20,4 +20,4 @@ type IConnection interface {
 // 第二个参数是客户端请求的数据
 // 第三个参数是客户端请求的数据长度
 // 如果我们想要指定一个conn的处理业务，只要定义一个HandFunc类型的函数，然后和该链接绑定就可以了
-type HandFunc func(*net.TCPConn, []byte, int) error
+//type HandFunc func(*net.TCPConn, []byte, int) error
