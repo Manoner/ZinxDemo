@@ -52,7 +52,7 @@ func (this *HelloZinxRouter) Handle(request ziface.IRequest) {
 	//先读取客户端的数据，再回写ping...ping...ping
 	fmt.Println("recv from client : msgId=", request.GetMsgID(), ", data=", string(request.GetData()))
 
-	err := request.GetConnection().SendMsg(1, []byte("Hello Zinx Router V0.6"))
+	err := request.GetConnection().SendMsg(1, []byte("Hello Zinx Router V0.8"))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -61,7 +61,7 @@ func (this *HelloZinxRouter) Handle(request ziface.IRequest) {
 // Server 模块的测试函数
 func main() {
 	// 1 创建一个 server 句柄 s
-	s := znet.NewServer("[ zinx v0.7]")
+	s := znet.NewServer("[ zinx v0.8]")
 
 	// 配置路由
 	s.AddRouter(0,&PingRouter{})

@@ -1,6 +1,7 @@
 package znet
 
 import (
+	"ZinxDemo/utils"
 	"ZinxDemo/ziface"
 	"errors"
 	"fmt"
@@ -108,8 +109,14 @@ func (c *Connection) StartReader() {
 			msg:  msg,
 		}
 
-		//从绑定好的消息和对应的处理方法中执行对应的Handle方法
-		go c.MsgHandler.DoMsgHandler(req)
+		if utils.GlobalObject.WorkerPoolSize > 0 {
+			// 已经启动工作流机制，将消息交给worker处理
+			c.MsgHandler.SendMsgToTaskQueue(req)
+		} else {
+			//从绑定好的消息和对应的处理方法中执行对应的Handle方法
+			go c.MsgHandler.DoMsgHandler(req)
+		}
+
 	}
 }
 

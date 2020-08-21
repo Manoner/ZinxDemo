@@ -24,3 +24,7 @@ start Zinx server   demo server  succ, now listenning...
 
 ### V0.7 读写分离模型
 ![](http://cdn.note.manoner.com/3-Zinx-V0.7%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%9E%8B.jpeg)
+
+
+### V0.8 消息队列
+![](http://cdn.note.manoner.com/4-Zinx-V0.8%E5%A4%9A%E4%BB%BB%E5%8A%A1%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.jpeg)
