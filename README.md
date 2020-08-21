@@ -16,11 +16,11 @@ start Zinx server   demo server  succ, now listenning...
 ### V0.5 消息封装
 
 封包格式
-![img](http://cdn.note.manoner.com/2-TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98-%E6%8B%86%E5%8C%85%E5%B0%81%E5%8C%85%E8%BF%87%E7%A8%8B.jpeg)
+![](http://cdn.note.manoner.com/2-TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98-%E6%8B%86%E5%8C%85%E5%B0%81%E5%8C%85%E8%BF%87%E7%A8%8B.jpeg)
 
 
 ### V0.6 多路由模式
 
 
 ### V0.7 读写分离模型
-![img](http://cdn.note.manoner.com/3-Zinx-V0.7%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%9E%8B.jpeg)
+![](http://cdn.note.manoner.com/3-Zinx-V0.7%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%9E%8B.jpeg)
