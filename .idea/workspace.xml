@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbf26c2e-2157-453f-bd23-ffa3e39b37d9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/conf/zinx.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/globalobj.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/globalobj_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtest/client/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtest/server/server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ziface/idatapack.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ziface/imessage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/znet/datapack.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/znet/message.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README2.md" beforeDir="false" afterPath="$PROJECT_DIR$/README2.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/znet/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/znet/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apptest/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/apptest/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apptest/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/apptest/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ziface/iconnection.go" beforeDir="false" afterPath="$PROJECT_DIR$/ziface/iconnection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ziface/irequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/ziface/irequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/znet/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/znet/connection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/znet/request.go" beforeDir="false" afterPath="$PROJECT_DIR$/znet/request.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/znet/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/znet/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +60,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packtest/server" />
       <recent name="$PROJECT_DIR$/app/client" />
       <recent name="$PROJECT_DIR$/app/server" />
     </key>
